@@ -12,3 +12,21 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+fmark_has_opt() {
+    local opt
+    local name="$1"
+    shift 1
+
+    for opt in "$@"; do
+        if [ "$opt" == "--" ]; then
+            return 1
+        fi
+
+        if expr "$opt" : "--$name" > /dev/null; then
+            return 0
+        fi
+    done
+
+    return 1
+}
