@@ -30,3 +30,24 @@ fmark_has_opt() {
 
     return 1
 }
+
+fmark_get_opt() {
+    local opt
+    local value
+
+    local name="$1"
+    shift
+
+    for opt in "$@"; do
+        if [ "$opt" = "--" ]; then
+            return 1
+        fi
+
+        if value=$(expr "$opt" : "--$name=\(.*\)"); then
+            echo "$value"
+            return 0
+        fi
+    done
+
+    return 1
+}
