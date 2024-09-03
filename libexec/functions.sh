@@ -61,3 +61,13 @@ fmark_ostype() {
         echo cygwin
     fi
 }
+
+fmark_firefox_is_running() {
+    if [[ "$(fmark_ostype)" == "cygwin" ]]; then
+        ps -W | grep firefox > /dev/null
+    else
+        pgrep firefox > /dev/null
+    fi
+
+    return $?
+}
