@@ -51,3 +51,13 @@ fmark_get_opt() {
 
     return 1
 }
+
+fmark_ostype() {
+    if uname | grep -i linux > /dev/null; then
+        echo linux
+    elif uname | grep -i darwin > /dev/null; then
+        echo darwin
+    elif uname | grep -i cygwin > /dev/null; then
+        echo cygwin
+    fi
+}
