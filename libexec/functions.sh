@@ -95,3 +95,32 @@ fmark_gen_conf() {
         echo 'profiledir="'"$basedir"/"$profile"'"' >> $cfgfile
     fi
 }
+
+fmark_init() {
+    if fmark_has_opt "help" "$@"; then
+        display_cmd_help
+        exit
+    fi
+
+    cfgfile="$FMARK_HOME"/etc/fmark.conf
+
+    if [ ! -r "$cfgfile" ]; then
+        read -p "configuration 'fmark.conf' not found, generate [y/n]? " yn
+
+        if [ "$yn" == "y" ]; then
+            fmark_gen_conf "$cfgfile"
+        else
+            echo "configuration '$cfgfile' not found or readable" >&2
+            exit 1
+        fi
+    fi
+
+    source "$FMARK_HOME"/etc/fmark.conf
+
+    dbfile=$(fmark_get_opt "dbfile" "$@" || echo "$profiledir"/places.sqlite)
+
+    if [ ! -r "$dbfile" ]; then
+        echo "database '$dbfile' not found or readable" >&2
+        exit 1
+    fi
+}
