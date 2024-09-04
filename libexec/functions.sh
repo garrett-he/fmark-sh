@@ -124,3 +124,14 @@ fmark_init() {
         exit 1
     fi
 }
+
+fmark_query_db() {
+    sql="$1"
+    shift
+
+    if [ $# -gt 0 ]; then
+        sqlite3 "$*" "$dbfile" "$sql"
+    else
+        sqlite3 "$dbfile" "$sql"
+    fi
+}
