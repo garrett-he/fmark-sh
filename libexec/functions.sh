@@ -135,3 +135,22 @@ fmark_query_db() {
         sqlite3 "$dbfile" "$sql"
     fi
 }
+
+fmark_color_print() {
+    if [ ! -t 1 ]; then
+        echo "$1"
+        return 0
+    fi
+
+    local black="\033[01;30m"
+    local red="\033[31m"
+    local green="\033[32m"
+    local yellow="\033[33m"
+    local blue="\033[34m"
+    local magenta="\033[35m"
+    local cyan="\033[36m"
+    local white="\033[37m"
+
+    eval local format=\$$2
+    echo -e "${format}${1}\033[0m"
+}
