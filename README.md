@@ -22,6 +22,19 @@ to operate on.
 `sqlite3` command-line tool is required to run queries on the bookmark
 database. See more details at [SQLite official website][3].
 
+## Commands
+
+The following options are available for all commands:
+
+*--dbfile=DBFILE*
+
+Specifies the path of database file, or else fmark will read the path from
+configuration file.
+
+*--help*
+
+Shows the help message of this command and exit.
+
 ## License
 
 Copyright (C) 2023 Garrett HE <garrett.he@hotmail.com>
