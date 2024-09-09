@@ -44,6 +44,35 @@ see [more details][4].
 $ fmark op [--dbfile=DBFILE] [--help]
 ```
 
+### list
+
+Lists bookmarks in Mozilla Firefox.
+
+```bash
+$ fmark list [--cols=COLS] [--delimiter=DELM] [--dbfile=DBFILE] [--help]
+```
+
+*--cols=COLS*
+
+Flags represent bookmark columns to be listed. The flags can be:
+
+- i = ID
+- u = URL
+- t = Title
+- a = Date Added
+- m = Last Modified
+- k = Keyword
+- d = Description
+- c = Visit Count
+- l = Last Visit Date
+- g = Tags
+
+*--delimiter=DELIM*
+
+Use DELIM as the field delimiter, a TAB by default. If you'd like to use
+some speicial character like "$" or "&", which have some particular
+functionalities, you have to escape them.
+
 ## License
 
 Copyright (C) 2023 Garrett HE <garrett.he@hotmail.com>
