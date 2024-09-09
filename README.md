@@ -35,6 +35,15 @@ configuration file.
 
 Shows the help message of this command and exit.
 
+### op
+
+Optimizes bookmark database,
+see [more details][4].
+
+```bash
+$ fmark op [--dbfile=DBFILE] [--help]
+```
+
 ## License
 
 Copyright (C) 2023 Garrett HE <garrett.he@hotmail.com>
@@ -44,3 +53,4 @@ The GNU General Public License (GPL) version 3, see [COPYING](./COPYING).
 [1]: https://www.mozilla.org
 [2]: http://www.cygwin.com
 [3]: http://www.sqlite.org
+[4]: http://www.sqlite.org/lang_vacuum.html
