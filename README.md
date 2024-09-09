@@ -73,6 +73,18 @@ Use DELIM as the field delimiter, a TAB by default. If you'd like to use
 some speicial character like "$" or "&", which have some particular
 functionalities, you have to escape them.
 
+*--duplicate=COL*
+
+If specified, fmark only lists bookmarks duplicated with COL:
+
+- u = URL
+- t = Title
+
+*--omitone*
+
+Use this option ONLY with *--duplicate*, to omit the first duplicate.
+
+
 ## License
 
 Copyright (C) 2023 Garrett HE <garrett.he@hotmail.com>
