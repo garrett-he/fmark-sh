@@ -19,6 +19,8 @@ display_cmd_usage() {
     echo "List all bookmarks"
     echo
     echo "  --cols=COLS        columns for displaying"
+    echo "  --duplicate=[u|t]  column to be identified for duplicates"
+    echo "  --omitone          use with --duplicate, omit the first duplicate"
     echo "  --delimiter=DELIM  DELIM as the column delimiter, a TAB by default"
     echo "  --dbfile=DBFILE    bookmark database file"
     echo "  --help             show help message and exit"
@@ -28,11 +30,42 @@ fmark_init "$@"
 
 cols=$(echo $(fmark_get_opt "cols" "$@" || echo "U") | tr '[a-z]' '[A-Z]')
 delim=$(fmark_get_opt "delimiter" "$@" || echo "\t")
+duplicate=$(fmark_get_opt "duplicate" "$@" | tr '[a-z]' '[A-Z]')
 from="moz_bookmarks b"
 
-where="b.type=1 AND \
-b.fk NOT IN (SELECT id FROM moz_places WHERE url LIKE 'place:%')"
+if [ "$duplicate" = "" ]; then
+    from="moz_bookmarks b"
+else
+    case $duplicate in
+        U)
+            dupcol="fk"
+            ;;
+        T)
+            dupcol="title"
+            ;;
+        *)
+            echo "unrecognized duplicate column: '$duplicate'" >&2
+            exit 1
+    esac
 
+    from="(SELECT * FROM moz_bookmarks WHERE $dupcol IN\
+        (SELECT $dupcol FROM moz_bookmarks WHERE parent NOT IN\
+        (SELECT id FROM moz_bookmarks WHERE parent IN\
+        (SELECT id FROM moz_bookmarks WHERE guid='tags________'))\
+        GROUP BY $dupcol HAVING COUNT(*)>1))"
+
+    if fmark_has_opt "omitone" "$@"; then
+        from="(SELECT * FROM $from WHERE id NOT IN (SELECT MIN(id) FROM $from GROUP BY $dupcol))"
+    fi
+
+    from="$from AS b"
+fi
+
+where="b.type=1 AND \
+b.fk NOT IN (SELECT id FROM moz_places WHERE url LIKE 'place:%') \
+AND parent NOT IN \
+(SELECT id FROM moz_bookmarks WHERE parent IN \
+(SELECT id FROM moz_bookmarks WHERE guid='tags________'))"
 
 # i = id
 if expr "$cols" : ".*I.*" > /dev/null; then
