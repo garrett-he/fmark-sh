@@ -84,6 +84,25 @@ If specified, fmark only lists bookmarks duplicated with COL:
 
 Use this option ONLY with *--duplicate*, to omit the first duplicate.
 
+### rm
+
+Removes bookmarks by identifiers.
+
+```bash
+$ fmark rm [ID [...]] [--help]
+```
+
+If no identifiers specified with arguments, this read the identifiers from
+STDIN(0).
+
+Example:
+
+```bash
+$ fmark list --duplicate=u --cols=i --omitone | fmark rm
+```
+
+This command remains one bookmarks from each duplicated groups,
+and removes others.
 
 ## License
 
