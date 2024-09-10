@@ -1,5 +1,7 @@
 # fmark
 
+[中文版说明](./README_zhCN.md)
+
 **fmark** is a suite of command-line tools to manage bookmarks for
 [Mozilla Firefox][1].
 
