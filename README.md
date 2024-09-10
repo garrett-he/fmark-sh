@@ -104,6 +104,14 @@ $ fmark list --duplicate=u --cols=i --omitone | fmark rm
 This command remains one bookmarks from each duplicated groups,
 and removes others.
 
+### stat
+
+Displays the statistics of bookmarks.
+
+```bash
+$ fmark stat [--dbfile=DBFILE] [--help]
+```
+
 ## License
 
 Copyright (C) 2023 Garrett HE <garrett.he@hotmail.com>
