@@ -112,6 +112,34 @@ Displays the statistics of bookmarks.
 $ fmark stat [--dbfile=DBFILE] [--help]
 ```
 
+### test
+
+Tests connection and HTTP status of bookmarks.
+
+Notice: This command only reads URLs from STDIN, you can generate a list
+by `fmark list` command.
+
+```bash
+$ fmark test [--max-time=SECONDS] [--threads=NUM] [--help]
+```
+
+*--max-time=SECONDS*
+
+Maximum time in seconds operation to take, defaults to be 5
+
+*--threads=NUM*
+
+Number of multiple requests to make, defaults to be 10
+
+Example:
+
+```bash
+$ fmark list --cols=u | fmark test
+[200] http://www.gnu.org
+[200] http://www.yahoo.com
+[ERR] http://www.youtube.com       // I'm in China, so you know why
+```
+
 ## License
 
 Copyright (C) 2023 Garrett HE <garrett.he@hotmail.com>
