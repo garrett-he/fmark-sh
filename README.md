@@ -22,6 +22,63 @@ to operate on.
 `sqlite3` command-line tool is required to run queries on the bookmark
 database. See more details at [SQLite official website][3].
 
+## Get Started
+
+Here is an example to delete duplicated bookmarks.
+(This is the main purpose I program this tool for :)
+
+Firstly, let's see the statistics information with command `fmark stat`:
+
+```sh
+$ fmark stat
+bookmarks: 9356
+keywords: 0
+size: 20971520
+```
+
+OK, there are lots of bookmarks (9356) and duplicates.
+
+Next, delete the duplicates:
+
+```sh
+$ fmark list --cols=I --duplicate=U --omitone | fmark rm
+```
+
+With this combined commands, fmark lists all the bookmark IDs
+`fmark list --cols=I` which are duplicated with URLs `--duplicate=U`, but
+omit the first one `--omitone` (for deletion purpose, remaining the first
+bookmark of each duplicate set), then use a pipeline to pass the ID list to
+`fmark rm` to delete the other duplicates.
+
+Now let's see the statistics again:
+
+```sh
+$ fmark stat
+bookmarks: 4919
+keywords: 0
+size: 20971520
+```
+
+As you see, 4437 duplicates are removed!
+
+After deletion, the size of bookmark database is still 20 MiB, let's try to
+optimize it:
+
+```sh
+$ fmark op
+```
+
+Statistics again:
+
+```sh
+$ fmark op
+bookmarks: 4919
+keywords: 0
+size: 9633792
+```
+
+See, the size is reduced to 9 MiB.
+
 ## Commands
 
 The following options are available for all commands:
