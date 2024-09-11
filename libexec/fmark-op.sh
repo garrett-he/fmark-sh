@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-display_cmd_usage() {
+display_cmd_help() {
     echo "usage: fmark op [--dbfile=DBFILE] [--help]"
     echo "Optimize bookmark database"
     echo
